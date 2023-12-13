@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Referência --- https://www.youtube.com/watch?v=xXrs4j-p3yE&ab_channel=GreatStack-->
+
+    <title>User-Interface</title>
+</head>
+
+<body>
+    <div class="hero">
+        <div class="card">
+            <h1>Nome do Usuário</h1>
+            <p>@IdUsuario</p>
+            <img src="img/defaultBackground.jpg" alt="" id="background-perfil">
+            <img src="img/default.jpg" alt="Imagem padrão" id="foto-perfil">
+                <label for="input-file">Atualizar imagem</label>
+                <input type="file" accept="image/jpeg, image/png, image/jpg" id="input-file">
+        </div>
+    </div>
+
+
+    <script>
+        let profilePic = document.getElementById("foto-perfil");
+        let inputPic = document.getElementById("input-file");
+
+
+
+        document.querySelector("#input-file").addEventListener("change", function () {
+            const reader = new FileReader();
+
+            reader.addEventListener("load", () => {
+                localStorage.setItem('recent-image', reader.result);
+                profilePic.src = reader.result;
+            });
+
+            reader.readAsDataURL(event.target.files[0]);
+
+        });
+
+
+
+        document.addEventListener("DOMContentLoaded", () => {
+
+            const imagemDefinida = localStorage.getItem('recent-image');
+            if (imagemDefinida) {
+                document.querySelector("#foto-perfil").setAttribute("src", imagemDefinida);
+            }
+
+
+        })
+
+
+
+
+
+
+    </script>
+</body>
+
+</html>
